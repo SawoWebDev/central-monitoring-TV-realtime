@@ -136,3 +136,4 @@ The knowledge graph lives OUTSIDE this repo, one folder up: C:\Jeremiah\Plant 1 
 - Never run graphify build/update with this repo as the target and never create a graphify-out/ folder inside this repo
   (it is also in .gitignore). If a question needs the graph, read it from the path above; otherwise read the source files.
 - There are no graphify hooks in .claude/settings.json (removed on purpose).
+
