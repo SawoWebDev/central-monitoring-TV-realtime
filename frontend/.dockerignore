@@ -1,0 +1,6 @@
+# Libraries and the build output are recreated inside the image; env files never go in
+node_modules
+dist
+.env
+.env.*
+*.log

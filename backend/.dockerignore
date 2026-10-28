@@ -1,0 +1,7 @@
+# Never copy secrets or local installs into the image
+.env
+.env.*
+node_modules
+test
+scripts
+*.log

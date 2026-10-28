@@ -1,0 +1,20 @@
+# Central Monitoring: start everything with `docker compose up -d --build` (run in this folder).
+# Open the dashboard at http://<this PC's IP>/ (port 80). Only the frontend is reachable from the network.
+services:
+  backend:
+    build: ./backend
+    # Settings and the Odoo API key are read from backend/.env when the container starts (never copied into the image).
+    env_file: ./backend/.env
+    environment:
+      # Requests arrive through Nginx: trust its X-Forwarded-For so the rate limit sees each browser's address
+      TRUST_PROXY: "true"
+    restart: unless-stopped
+    # No "ports": the backend is only reachable by the frontend container, not from the network.
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
+    ports:
+      - "8011:80"

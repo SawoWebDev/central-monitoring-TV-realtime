@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Monitor display: one fixed light theme in the SAWO logo colors (white, black, red),
+   so the screen looks the same whatever the computer's light/dark setting is.
+   Both fonts are system fonts (nothing is downloaded). */
+@theme {
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
+  --color-brand: #ed1c24; /* SAWO red */
+  --color-brand-dark: #c8161d; /* darker red for small text, readable on white */
+}
+
+:root {
+  color-scheme: light;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header background: white, turning black exactly where the header's centred 2000px content ends, so on
+   screens wider than 2000px the black band continues to the right edge (and below 2000px it is plain white). */
+.header-bg {
+  background: linear-gradient(to right, #fff calc(50% + 1000px), var(--color-neutral-950) calc(50% + 1000px));
+}
+
+body {
+  @apply min-h-screen bg-linear-to-br from-neutral-100 via-white to-neutral-200 bg-fixed text-neutral-900 antialiased;
+}
