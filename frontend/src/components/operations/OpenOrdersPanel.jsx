@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, Download, FileSpreadsheet, Filter, Loader2, Search, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, Download, Filter, Loader2, Search, X } from 'lucide-react';
 import Panel from '../Panel';
 import AsyncContent from '../AsyncContent';
 import { useApi } from '../../hooks/useApi';
@@ -334,25 +334,20 @@ function ExcelButton({ order }) {
   };
 
   return (
-    <div className="mb-2 flex flex-wrap items-center justify-end gap-3">
-      {error && <span role="alert" className="text-xs text-rose-700">Could not create the Excel file: {error}</span>}
+    // The order lines table is wider than small screens and scrolls sideways. This bar is pinned to the left edge
+    // of the visible area (sticky) and limited to the screen width, so the button never scrolls out of sight.
+    <div className="sticky left-0 mb-2 flex w-[calc(100vw-4rem)] max-w-full flex-wrap items-center gap-3">
       <button
         type="button"
         onClick={download}
         disabled={busy}
-        title={busy ? 'Preparing Excel…' : 'Download Excel'}
+        title={busy ? 'Preparing Excel…' : 'Download this order as Excel'}
         aria-label={busy ? 'Preparing Excel…' : 'Download Excel'}
-        className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-white p-1.5 text-emerald-700 hover:bg-emerald-50 disabled:opacity-60"
+        className="inline-flex size-8 items-center justify-center rounded-md border border-neutral-200 bg-white text-emerald-700 hover:bg-emerald-50 disabled:opacity-60"
       >
-        {busy ? (
-          <Loader2 className="size-3.5 animate-spin text-neutral-700" aria-hidden />
-        ) : (
-          <>
-            <Download className="size-3.5 text-neutral-500" aria-hidden />
-            <FileSpreadsheet className="size-3.5" aria-hidden />
-          </>
-        )}
+        {busy ? <Loader2 className="size-4 animate-spin text-neutral-700" aria-hidden /> : <Download className="size-4" aria-hidden />}
       </button>
+      {error && <span role="alert" className="text-xs text-rose-700">Could not create the Excel file: {error}</span>}
     </div>
   );
 }
